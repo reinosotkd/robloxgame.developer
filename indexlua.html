@@ -375,10 +375,10 @@
             <a href="#home" class="logo" onclick="navigate('home')">College Simulator</a>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home" onclick="navigate('home')" class="nav-link active">Inicio</a></li>
-                <li><a href="#updates" onclick="navigate('updates')" class="nav-link">En desarrollo...</a></li>
-                <li><a href="#codes" onclick="navigate('codes')" class="nav-link">En desarrollo...</a></li>
-                <li><a href="#features" onclick="navigate('features')" class="nav-link">En desarrollo...</a></li>
-                <li><a href="#gallery" onclick="navigate('gallery')" class="nav-link">En desarrollo...</a></li>
+                <li><a href="#updates" onclick="navigate('updates')" class="nav-link">Novedades</a></li>
+                <li><a href="#codes" onclick="navigate('codes')" class="nav-link">Códigos</a></li>
+                <li><a href="#features" onclick="navigate('features')" class="nav-link">Características</a></li>
+                <li><a href="#gallery" onclick="navigate('gallery')" class="nav-link">Galería</a></li>
             </ul>
             <div class="menu-toggle" onclick="toggleMenu()">
                 <span></span>
@@ -410,7 +410,7 @@
             </div>
 
             <div class="container">
-                <h2 class="section-title">Ultimas Novedades<br>de <strong>desarrollo</strong></strong></h2>
+                <h2 class="section-title">Ultimas Novedades<br>de <strong>desarrollo</strong></h2>
                 <div class="updates-list">
                     <div class="update-card">
                         <h3>v0.0.1 (DEV)</h3>
@@ -424,7 +424,8 @@
                 </div>
             </div>
         </section>
-        <!-- UPDATES
+
+        <!-- UPDATES -->
         <section id="updates" class="section">
             <div class="container">
                 <h2 class="section-title">Historial de Updates</h2>
@@ -461,11 +462,8 @@
                 </div>
             </div>
         </section>
---->
+
         <!-- CODES -->
-
-
-        <!-- DESACTIVADO
         <section id="codes" class="section">
             <div class="container">
                 <h2 class="section-title">Codigos Activos</h2>
@@ -490,47 +488,46 @@
                 </div>
             </div>
         </section>
-    -->
-        <!-- FEATURES
+
+        <!-- FEATURES -->
         <section id="features" class="section">
             <div class="container">
                 <h2 class="section-title">Caracteristicas del Juego</h2>
                 <div class="features-grid">
                     <div class="feature-item">
-                        <div class="feature-icon">[IMG]</div>
+                        <div class="feature-icon">🔍</div>
                         <h3>Explora la Escuela</h3>
                         <p>Recorre cada rincón del campus y descubre areas secretas</p>
                     </div>
 
                     <div class="feature-item">
-                        <div class="feature-icon">[IMG]</div>
+                        <div class="feature-icon">🎮</div>
                         <h3>Haz Travesuras</h3>
                         <p>Causa el caos en las clases pero evita ser descubierto</p>
                     </div>
 
                     <div class="feature-item">
-                        <div class="feature-icon">[IMG]</div>
+                        <div class="feature-icon">🚪</div>
                         <h3>Escapa de Clases</h3>
                         <p>Encuentra la forma de salir sin que te vea el profesor</p>
                     </div>
 
                     <div class="feature-item">
-                        <div class="feature-icon">[IMG]</div>
+                        <div class="feature-icon">🕵️</div>
                         <h3>Evita Ser Atrapado</h3>
                         <p>Usa tu ingenio para esconderte de los vigilantes</p>
                     </div>
 
                     <div class="feature-item">
-                        <div class="feature-icon">[IMG]</div>
+                        <div class="feature-icon">💰</div>
                         <h3>Gana Recompensas</h3>
                         <p>Completa desafios y obtiene monedas exclusivas</p>
                     </div>
                 </div>
             </div>
         </section>
-    -->
 
-        <!-- GALLERY
+        <!-- GALLERY -->
         <section id="gallery" class="section">
             <div class="container">
                 <h2 class="section-title">Galeria</h2>
@@ -557,23 +554,27 @@
             </div>
         </section>
     </main>
--->
     <script>
         // Navegacion entre secciones
         function navigate(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (!section) return;
+
             // Ocultar todas las secciones
-            document.querySelectorAll('.section').forEach(section => {
-                section.classList.remove('active');
+            document.querySelectorAll('.section').forEach(s => {
+                s.classList.remove('active');
             });
             
             // Mostrar la seccion seleccionada
-            document.getElementById(sectionId).classList.add('active');
+            section.classList.add('active');
             
             // Actualizar navegacion activa
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.classList.remove('active');
+                if (link.getAttribute('href') === `#${sectionId}`) {
+                    link.classList.add('active');
+                }
             });
-            event.target.classList.add('active');
             
             // Cerrar menu mobile si esta abierto
             document.getElementById('navLinks').classList.remove('active');
@@ -582,7 +583,9 @@
             window.scrollTo(0, 0);
             
             // Actualizar URL hash
-            window.location.hash = sectionId;
+            if (window.location.hash !== `#${sectionId}`) {
+                window.location.hash = sectionId;
+            }
         }
 
         // Menu mobile toggle
